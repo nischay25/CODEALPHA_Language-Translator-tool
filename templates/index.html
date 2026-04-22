@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Translator</title>
+</head>
+<body>
+
+<h2>🌍 Language Translator</h2>
+<style>
+    body{
+        background:linear-gradient(to bottom, #000011, #000033);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color:aliceblue;
+        height: 100vh;
+        margin: 0;
+        position: relative;
+        overflow: hidden;
+    }
+    body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+            radial-gradient(2px 2px at 40px 70px, #eee, transparent),
+            radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+            radial-gradient(1px 1px at 130px 80px, #ddd, transparent),
+            radial-gradient(2px 2px at 160px 30px, #fff, transparent),
+            radial-gradient(1px 1px at 200px 60px, #eee, transparent),
+            radial-gradient(2px 2px at 250px 90px, #fff, transparent),
+            radial-gradient(1px 1px at 300px 20px, #ddd, transparent);
+        background-repeat: repeat;
+        background-size: 300px 150px;
+        pointer-events: none;
+        z-index: 0;
+    }
+    h2, h3, p, form {
+        position: relative;
+        z-index: 1;
+    }
+    textarea {
+        padding: 20px;
+        border-radius: 10px;
+        border: none;
+        width: 600px;
+        height: 250px;
+        font-size: 18px;
+    }
+    select{
+        padding: 12px 15px;
+        border-radius: 10px;
+        border: none;
+        font-size: 16px;
+        min-width: 120px;
+    }
+    select:hover{
+        background-color: rgb(241, 241, 247);
+        color: rgb(31, 31, 32);
+        transform: scale(1.1);
+    }
+    button{
+        padding: 15px 40px;
+        border-radius: 10px;
+        border: none;
+        background-color: rgb(241, 241, 247);
+        color: rgb(31, 31, 32);
+        cursor: pointer;
+        font-size: 16px;
+        margin: 10px;
+    }
+    button:hover{
+        background-color: rgb(241, 241, 247);
+        color: rgb(31, 31, 32);
+        transform: scale(1.1);
+    }
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    h3{
+        color: rgb(243, 243, 247);
+    }
+    
+</style>
+<form method="POST">
+    <textarea name="text" placeholder="Enter text"></textarea><br><br>
+
+    From:
+    <select name="src">
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+        <option value="pt">Portuguese</option>
+        <option value="te">Telugu</option>
+        <option value="hi">Hindi</option>
+        <option value="ta">Tamil</option>
+        <option value="ml">Malayalam</option>
+        <option value="ja">Japanese</option>
+        <option value="zh-CN">Chinese (Simplified)</option>
+    </select>
+
+    To:
+    <select name="dest">
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+        <option value="pt">Portuguese</option>
+        <option value="te">Telugu</option>
+        <option value="hi">Hindi</option>
+        <option value="ta">Tamil</option>
+        <option value="ml">Malayalam</option>
+        <option value="ja">Japanese</option>
+        <option value="zh-CN">Chinese (Simplified)</option>
+    </select>
+
+    <br><br>
+    <div class="button-container">
+        <button type="submit">Translate</button>
+        <button type="reset" onclick="clearFields()">Clear</button>
+        <button type="button" onclick="copyToClipboard()">Copy Result</button>
+    </div>
+</form>
+
+<h3>Result:</h3>
+<p id="resultText">{{ translated_text }}</p>
+
+<script>
+    function clearFields() {
+        document.querySelector('textarea').value = '';
+        document.getElementById('resultText').innerText = '';
+    }
+    
+    function copyToClipboard() {
+        const resultText = document.getElementById('resultText').innerText;
+        if (resultText.trim() === '') {
+            alert('No translated text to copy!');
+            return;
+        }
+        navigator.clipboard.writeText(resultText).then(() => {
+            alert('Copied to clipboard!');
+        }).catch(err => {
+            console.error('Failed to copy:', err);
+        });
+    }
+</script>
+
+</body>
+</html>
